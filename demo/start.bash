@@ -18,7 +18,7 @@ fi
 
 mkdir -p log
 
-$ALPINO_HOME/bin/Alpino -notk -veryfast user_max=20000 \
+$ALPINO_HOME/bin/Alpino -notk -veryfast user_max=60000 \
     server_kind=parse \
     server_port=11211 \
     assume_input_is_tokenized=on \
@@ -26,54 +26,8 @@ $ALPINO_HOME/bin/Alpino -notk -veryfast user_max=20000 \
     -init_dict_p \
     batch_command=alpino_server &> ${NULL:-log/alpino11.out} &
 
-$ALPINO_HOME/bin/Alpino -notk -veryfast user_max=60000 \
-    server_kind=parse \
-    server_port=11212 \
-    assume_input_is_tokenized=on \
-    debug=$DEBUG \
-    -init_dict_p \
-    batch_command=alpino_server &> ${NULL:-log/alpino12.out} &
-
-$ALPINO_HOME/bin/Alpino -notk -veryfast user_max=600000 \
-    server_kind=parse \
-    server_port=11213 \
-    assume_input_is_tokenized=on \
-    debug=$DEBUG \
-    -init_dict_p \
-    batch_command=alpino_server &> ${NULL:-log/alpino13.out} &
-
-$ALPINO_HOME/bin/Alpino -notk -veryfast user_max=20000 \
-    application_type=qa \
-    server_kind=parse \
-    server_port=11221 \
-    assume_input_is_tokenized=on \
-    debug=$DEBUG \
-    -init_dict_p \
-    batch_command=alpino_server &> ${NULL:-log/alpino21.out} &
-
-$ALPINO_HOME/bin/Alpino -notk -veryfast user_max=60000 \
-    application_type=qa \
-    server_kind=parse \
-    server_port=11222 \
-    assume_input_is_tokenized=on \
-    debug=$DEBUG \
-    -init_dict_p \
-    batch_command=alpino_server &> ${NULL:-log/alpino22.out} &
-
-$ALPINO_HOME/bin/Alpino -notk -veryfast user_max=600000 \
-    application_type=qa \
-    server_kind=parse \
-    server_port=11223 \
-    assume_input_is_tokenized=on \
-    debug=$DEBUG \
-    -init_dict_p \
-    batch_command=alpino_server &> ${NULL:-log/alpino23.out} &
-
 sleep 10
-for i in 11211 11212 11213 11221 11222 11223
-do
-    echo hallo $i | nc localhost $i | grep sentence
-done
+echo hallo 11211 | nc localhost 11211 | grep sentence
 
 if [ "$1" = "-i" ]
 then
@@ -81,5 +35,5 @@ then
     ./stop.bash
 else
     ./alpiner config.toml &> log/alpiner.out &
-    ps -p `pgrep -f -u $USER 'alpiner|server_port=112(11|12|13|21|22|23)'`
+    ps -p `pgrep -f -u $USER 'alpiner|server_port=11211'`
 fi

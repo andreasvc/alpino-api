@@ -2,17 +2,14 @@
 
 RESTART=0
 
-for i in 11211 11212 11213 11221 11222 11223
-do
-    case `echo hallo $i | nc localhost $i | grep sentence` in
-	*sentence*)
-	    ;;
-	*)
-	    RESTART=1
-	    break
-	    ;;
-    esac
-done
+case `echo hallo 11211 | nc localhost 11211 | grep sentence` in
+*sentence*)
+	;;
+*)
+	RESTART=1
+	break
+	;;
+esac
 
 if [ $RESTART = 0 ]
 then
