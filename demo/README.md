@@ -1,3 +1,7 @@
+NB: deze fork van alpino-api start in de standaardconfiguratie slechts één
+Alpino-server in plaats van meerdere, om het geheugengebruik te beperken voor
+gebruik op je eigen computer. Voor de rest is de code identiek aan het origineel.
+
 Dit is een voorbeeld van een server die de Alpino-API implementeert.
 
 Dit voorbeeld draait Alpino zelf op de lokale server.
@@ -6,9 +10,23 @@ Dit is niet geheel veilig voor in een productie-omgeving.
 
 Voor een client, zie: https://github.com/rug-compling/paqu/tree/master/src/pqalpino
 
+## Installatie-instructies
+
+Uitgaande van Debian/Ubuntu:
+
+	apt-get install golang
+	git clone https://github.com/andreasvc/alpino-api.git
+	cd alpino-api/demo
+	# negeer de waarschuwing na het volgende commando:
+	go get ./...
+	make
+
+Installeer Alpino volgens de instructies in de handleiding:
+http://www.let.rug.nl/vannoord/alp/Alpino/AlpinoUserGuide.html
+
 ## start
 
-Het script `start.bash` start een aantal versies van Alpino in
+Het script `start.bash` start een versie van Alpino in
 server-modus, en start de API-server `alpiner`.
 
 De API-server is beschikbaar via de url http://127.0.0.1:11200/json
